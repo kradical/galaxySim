@@ -4,7 +4,7 @@
     //my globals
     var uniforms, sphereMaterial;
     // properties/globals
-    var sceneDistance = 10www00;
+    var sceneDistance = 100000;
     var lightColor = 0x008080;
     var keysPressed = [];
 
@@ -13,16 +13,17 @@
         registerHandlers();
         setUpStarMaterials();
 
-        for (let i = 0; i < 10000; i++) {
-            let x = (Math.random() - 0.5) * 10 * sceneDistance;
-            let y = (Math.random() - 0.5) * 10 * sceneDistance;
-            let z = Math.random() * 10 * sceneDistance;
+        render();  
+
+        for (let i = 0; i < 1000; i++) {
+            let x = (Math.random() - 0.5) * sceneDistance;
+            let y = (Math.random() - 0.5) * sceneDistance;
+            let z = (Math.random() + 0.5) * sceneDistance;
             let size = Math.round(Math.random() * 100);
             
             addStar(x, y, z, size);
         }
-
-        render();   
+ 
     });
 
     //Initializes all the threejs stuff
