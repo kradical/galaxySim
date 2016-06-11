@@ -12,8 +12,6 @@ def main():
     conn = psycopg2.connect("dbname=" + DB_NAME + " user=" + DB_USER + " host=" + DB_HOST + " password=" + DB_PASSWORD)
     cur = conn.cursor()
 
-    print(DB_TABLE_NAME)
-
     cur.execute("CREATE TABLE IF NOT EXISTS " + DB_TABLE_NAME +
         """
         (
@@ -60,7 +58,6 @@ def main():
         csv_reader = csv.reader(csv_file)
         next(csv_reader)
         for ndx, row in enumerate(csv_reader):
-            print(ndx)
             cur.execute('INSERT INTO stardata VALUES(%s' + ',%s'*36 + ')', [None if cell == '' else cell for cell in row])
 
     conn.commit()
