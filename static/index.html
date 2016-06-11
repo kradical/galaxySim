@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title>Spoopy!</title>
+	<link rel="stylesheet" type="text/css" href="css/canvas.css">
+	<script src="vendor/three.js" defer></script>
+	<script src="vendor/jquery-2.2.4.min.js" defer></script>
+	<script src="js/main.js" defer></script>
+</head>
+<body>
+    <script id="fragmentShader" type="x-shader/x-fragment">
+        uniform float time;
+        uniform sampler2D texture1;
+        uniform sampler2D texture2;
+        varying vec2 texCoord;
+
+        void main () {
+            vec2 T1 = texCoord + vec2(1.5, -1.5) * time * 0.01;
+            vec2 T2 = texCoord + vec2(-0.5, 2.0) * time * 0.01;
+            vec4 noise = texture2D(texture1, texCoord);
+
+            T1.x -= noise.r * 2.0;
+            T1.y += noise.g * 4.0;
+            T2.x += noise.g * 0.2;
+            T2.y += noise.b * 0.2;
+
+            float p = texture2D(texture1, T1 * 2.0).a + 0.25;
+
+            vec4 color = texture2D(texture2, T2);
+            vec4 final = color * 2.0 * (vec4(p, p, p, p)) + (color * color);
+            gl_FragColor = final;
+        }
+    </script>
+    <script id="vertexShader" type="x-shader/x-vertex">
+        varying vec2 texCoord;
+        void main() {
+            texCoord = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+    </script>
+</body>
