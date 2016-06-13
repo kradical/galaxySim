@@ -1,2 +1,3 @@
-/data/dbConfig.py
+*__pycache__/*
+dbConfig.py
 *.csv
