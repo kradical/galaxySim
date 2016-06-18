@@ -14,7 +14,7 @@ def ajax_all_star_data():
     db = get_db()
     cur = db.cursor()
     cur.execute('SELECT x, y, z, absmag FROM stardata where dist <> 100000 order by dist')
-    return jsonify([{'x': tup[0], 'y': tup[1], 'z': tup[2], 'absmag': tup[3]} for tup in cur.fetchmany(1000)])
+    return jsonify([{'x': tup[0], 'y': tup[1], 'z': tup[2], 'absmag': tup[3], 'mag': tup[4], 'dist': tup[5]} for tup in cur.fetchall()])
 
 def get_db():
     if not hasattr(g, 'star_db'):
